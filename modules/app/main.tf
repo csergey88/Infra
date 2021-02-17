@@ -35,18 +35,6 @@ resource "google_compute_instance" "app" {
     private_key = "${file(var.user_privat_key_path)}"
   }
 
-  provisioner "file" {
-    source      = "files/puma.service"
-    destination = "/tmp/puma.service"
-  }
-
-  provisioner "local-exec" {
-    command = "DATABASE_URL=ruby-db"
-  }
-
-  provisioner "remote-exec" {
-    script = "files/deploy.sh"
-  }
 }
 
 resource "google_compute_address" "app_ip" { 
